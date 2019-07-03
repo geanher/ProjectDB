@@ -118,8 +118,8 @@ class MetPago(models.Model):
 
 class Preguntas(models.Model):
     idbanco = models.ForeignKey(DetBancos, models.DO_NOTHING, db_column='idbanco')
-    ci = models.CharField(primary_key=True, max_length=30)
-    idpregunta = models.AutoField()
+    ci = models.CharField(max_length=30)
+    idpregunta = models.AutoField(primary_key=True)
     pregunta = models.CharField(max_length=40, blank=True, null=True)
     respuesta = models.CharField(max_length=40, blank=True, null=True)
 
