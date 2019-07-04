@@ -7,17 +7,14 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
 
-
 class Bancos(models.Model):
-    idbanco = models.ForeignKey('DetBancos', models.DO_NOTHING, db_column='idbanco')
-    ci = models.CharField(primary_key=True, max_length=30)
+    idbanco = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=30, blank=True, null=True)
     website = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'bancos'
-        unique_together = (('ci', 'idbanco'),)
 
 
 class Clientes(models.Model):
@@ -37,22 +34,20 @@ class Clientes(models.Model):
 
 
 class Correos(models.Model):
-    idcorreo = models.ForeignKey('DetCorreos', models.DO_NOTHING, db_column='idcorreo')
-    ci = models.CharField(primary_key=True, max_length=30)
+    idcorreo = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=30, blank=True, null=True)
     website = models.CharField(max_length=30, blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'correos'
-        unique_together = (('ci', 'idcorreo'),)
 
 
 class DetBancos(models.Model):
     ci = models.ForeignKey(Clientes, models.DO_NOTHING, db_column='ci', primary_key=True)
-    idbanco = models.IntegerField()
+    idbanco = models.ForeignKey(Bancos, models.DO_NOTHING, db_column='idbanco', blank=True, null=True)
     tipo_cuenta = models.CharField(max_length=1, blank=True, null=True)
-    n_cuenta = models.CharField(max_length=20, blank=True, null=True)
+    n_cuenta = models.CharField(max_length=20)
     n_tarjeta = models.CharField(max_length=20, blank=True, null=True)
     cod_seg = models.SmallIntegerField(blank=True, null=True)
     fecha_vencimiento = models.CharField(max_length=20, blank=True, null=True)
@@ -65,11 +60,11 @@ class DetBancos(models.Model):
     class Meta:
         managed = False
         db_table = 'det_bancos'
-        unique_together = (('ci', 'idbanco'),)
+        unique_together = (('ci', 'n_cuenta'),)
 
 
 class DetCorreos(models.Model):
-    idcorreo = models.IntegerField()
+    idcorreo = models.ForeignKey(Correos, models.DO_NOTHING, db_column='idcorreo')
     ci = models.ForeignKey(Clientes, models.DO_NOTHING, db_column='ci', primary_key=True)
     ususario = models.CharField(max_length=20, blank=True, null=True)
     clave = models.CharField(max_length=20, blank=True, null=True)
@@ -95,6 +90,11 @@ class DetFact(models.Model):
         unique_together = (('num_factura', 'cod_producto'),)
 
 
+
+
+
+
+
 class Facturas(models.Model):
     num_factura = models.AutoField(primary_key=True)
     ci = models.ForeignKey(Clientes, models.DO_NOTHING, db_column='ci', blank=True, null=True)
@@ -117,8 +117,8 @@ class MetPago(models.Model):
 
 
 class Preguntas(models.Model):
-    idbanco = models.ForeignKey(DetBancos, models.DO_NOTHING, db_column='idbanco')
-    ci = models.CharField(max_length=30)
+    n_cuenta = models.CharField(max_length=20, blank=True, null=True)
+    ci = models.ForeignKey(DetBancos, models.DO_NOTHING, db_column='ci', blank=True, null=True)
     idpregunta = models.AutoField(primary_key=True)
     pregunta = models.CharField(max_length=40, blank=True, null=True)
     respuesta = models.CharField(max_length=40, blank=True, null=True)
@@ -126,7 +126,6 @@ class Preguntas(models.Model):
     class Meta:
         managed = False
         db_table = 'preguntas'
-        unique_together = (('ci', 'idbanco', 'idpregunta'),)
 
 
 class Productos(models.Model):
