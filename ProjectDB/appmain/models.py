@@ -44,10 +44,11 @@ class Correos(models.Model):
 
 
 class DetBancos(models.Model):
-    ci = models.ForeignKey(Clientes, models.DO_NOTHING, db_column='ci', primary_key=True)
+    #iddetbanco = models.AutoField()
+    ci = models.ForeignKey(Clientes, models.DO_NOTHING, db_column='ci')
     idbanco = models.ForeignKey(Bancos, models.DO_NOTHING, db_column='idbanco', blank=True, null=True)
     tipo_cuenta = models.CharField(max_length=1, blank=True, null=True)
-    n_cuenta = models.CharField(max_length=20)
+    n_cuenta = models.CharField(max_length=20,primary_key=True)
     n_tarjeta = models.CharField(max_length=20, blank=True, null=True)
     cod_seg = models.SmallIntegerField(blank=True, null=True)
     fecha_vencimiento = models.CharField(max_length=20, blank=True, null=True)
@@ -64,8 +65,9 @@ class DetBancos(models.Model):
 
 
 class DetCorreos(models.Model):
+    iddetcorreos = models.AutoField(primary_key=True)
     idcorreo = models.ForeignKey(Correos, models.DO_NOTHING, db_column='idcorreo')
-    ci = models.ForeignKey(Clientes, models.DO_NOTHING, db_column='ci', primary_key=True)
+    ci = models.ForeignKey(Clientes, models.DO_NOTHING, db_column='ci')
     ususario = models.CharField(max_length=20, blank=True, null=True)
     clave = models.CharField(max_length=20, blank=True, null=True)
     tlf_correo = models.CharField(max_length=20, blank=True, null=True)
@@ -74,11 +76,12 @@ class DetCorreos(models.Model):
     class Meta:
         managed = False
         db_table = 'det_correos'
-        unique_together = (('ci', 'idcorreo'),)
+        unique_together = (('ci', 'idcorreo', 'iddetcorreos'),)
 
 
 class DetFact(models.Model):
-    num_factura = models.ForeignKey('Facturas', models.DO_NOTHING, db_column='num_factura', primary_key=True)
+    iddetfact = models.AutoField(primary_key=True)
+    num_factura = models.ForeignKey('Facturas', models.DO_NOTHING, db_column='num_factura')
     cod_producto = models.ForeignKey('Productos', models.DO_NOTHING, db_column='cod_producto')
     cantidad = models.SmallIntegerField(blank=True, null=True)
     precio = models.IntegerField(blank=True, null=True)
@@ -87,7 +90,7 @@ class DetFact(models.Model):
     class Meta:
         managed = False
         db_table = 'det_fact'
-        unique_together = (('num_factura', 'cod_producto'),)
+        unique_together = (('num_factura', 'cod_producto', 'iddetfact'),)
 
 
 
@@ -106,19 +109,20 @@ class Facturas(models.Model):
 
 
 class MetPago(models.Model):
-    num_factura = models.ForeignKey(Facturas, models.DO_NOTHING, db_column='num_factura', primary_key=True)
-    tipo_pago = models.CharField(max_length=1)
+    id_met = models.AutoField(primary_key=True)
+    num_factura = models.ForeignKey(Facturas, models.DO_NOTHING, db_column='num_factura')
+    tipo_pago = models.CharField(max_length=1, )
     monto = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'met_pago'
-        unique_together = (('num_factura', 'tipo_pago'),)
+        unique_together = (( 'tipo_pago' , 'num_factura'),)
 
 
 class Preguntas(models.Model):
-    n_cuenta = models.CharField(max_length=20, blank=True, null=True)
-    ci = models.ForeignKey(DetBancos, models.DO_NOTHING, db_column='ci', blank=True, null=True)
+    n_cuenta = models.ForeignKey(DetBancos, models.DO_NOTHING, db_column='n_cuenta', blank=True, null=True)
+    #ci = models.CharField(max_length=20, blank=True, null=True)
     idpregunta = models.AutoField(primary_key=True)
     pregunta = models.CharField(max_length=40, blank=True, null=True)
     respuesta = models.CharField(max_length=40, blank=True, null=True)
@@ -126,6 +130,7 @@ class Preguntas(models.Model):
     class Meta:
         managed = False
         db_table = 'preguntas'
+        unique_together = (( 'n_cuenta' , 'idpregunta'),)
 
 
 class Productos(models.Model):
