@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<form method="post">
+	{% csrf_token %}
+	<h3> ¿Desea eliminar {{ persona.nombre }}?</h3>
+	<button class= "btn btn-danger" type="submit">Eliminar</button>
+	<a class= "btn btn-default" href="{% url 'personas:persona_listar' %}">Cancelar</a>
+
+	
+	
+</form>
+
+{% endblock %}

@@ -26,3 +26,25 @@ def persona_list(request):
 	persona = Clientes.objects.all()
 	contexto = {'personas' :persona}
 	return render(request, 'personas/personas_list.html', contexto)
+
+
+
+def persona_edit(request, ci_persona):
+	persona = Clientes.objects.get(ci=ci_persona)
+	if request.method == 'GET':
+		form = PersonasForm(instance=persona)
+	else:
+		form = PersonasForm(request.POST, instance=persona)
+		if form.is_valid():
+			form.save()
+		return redirect('personas:persona_listar')
+	return render(request, 'personas/personas_form.html', {'form':form})
+
+
+def persona_delete(request, ci_persona):
+	persona = Clientes.objects.get(ci = ci_persona)
+	if request.method == 'POST' :
+		persona.delete()
+		return redirect('personas:persona_listar')
+	return render(request, 'personas/persona_delete.html', {'persona' :persona})
+	

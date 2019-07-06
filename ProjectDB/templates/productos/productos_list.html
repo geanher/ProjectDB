@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<td>codigo</td>		
+			<td>Nombre</td>
+			<td>Tipo</td>
+			<td>Precio</td>
+		</tr>
+		
+	</thead>
+	<tbody>
+		{% if productos %}
+		{% for producto in productos %}
+		<tr>
+			<td>{{ producto.codigo }}</td>
+			<td>{{ producto.nombre }}</td>
+			<td>{{ producto.tipo_prod }}</td>
+			<td>{{ producto.precio }}</td>
+				{% endfor %}
+			</ul>
+    		</td>
+			<td>
+			</td>
+		</tr>		
+		{% else %}
+		<h1>No hay registros de productos</h1>
+		{% endif %}
+	</tbody>
+</table> 
+<ul class="pager">
+	<li>
+		{% if page_obj.has_previous %}
+       	 <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+		{% endif %}
+        </li>
+	<li>
+		{% if page_obj.has_next %}
+     	 <a href="?page={{ page_obj.next_page_number }}">Next</a> 
+    	{% endif %}
+    </li>
+</ul>
+{% endblock%}
