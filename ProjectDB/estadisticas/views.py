@@ -5,6 +5,5 @@ from django.http import HttpResponse
 
 
 
-def index(request):
-	return render(request, 'base.html')
-
+def estadisticas(request):
+	return render(request, 'estadisticas/estadisticas.html')
