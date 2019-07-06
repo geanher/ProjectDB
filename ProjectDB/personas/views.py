@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from personas.forms import PersonasForm
+from appmain.models import Clientes
 
 # Create your views here.
 
@@ -19,3 +20,9 @@ def persona_view(request):
 	else:
 		form = PersonasForm()
 	return render(request, 'personas/personas_form.html', {'form': form})
+
+
+def persona_list(request):
+	persona = Clientes.objects.all()
+	contexto = {'personas' :persona}
+	return render(request, 'personas/personas_list.html', contexto)

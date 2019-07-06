@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<td>ci</td>		
+			<td>Nombres</td>
+			<td>Apellidos</td>
+			<td>Telefono</td>
+			<td>Direccion</td>
+			<td>Fecha de Nacimiento</td>
+			<td>Genero</td>
+			<td>Deudor</td>
+		</tr>
+		
+	</thead>
+	<tbody>
+		{% if personas %}
+		{% for persona in personas %}
+		<tr>
+			<td>{{ persona.ci }}</td>
+			<td>{{ persona.nombre }}</td>
+			<td>{{ persona.apellido }}</td>
+			<td>{{ persona.telefono }}</td>
+			<td>{{ persona.direccion }}</td>
+			<td>{{ persona.fecha_nac }}</td>
+			<td>{{ persona.genero }}</td>
+			<td>{{ persona.deudor }}</td>
+				{% endfor %}
+			</ul>
+    		</td>
+			<td>
+			</td>
+		</tr>		
+		{% else %}
+		<h1>No hay registros de Personas</h1>
+		{% endif %}
+	</tbody>
+</table> 
+<ul class="pager">
+	<li>
+		{% if page_obj.has_previous %}
+       	 <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+		{% endif %}
+        </li>
+	<li>
+		{% if page_obj.has_next %}
+     	 <a href="?page={{ page_obj.next_page_number }}">Next</a> 
+    	{% endif %}
+    </li>
+</ul>
+{% endblock%}
