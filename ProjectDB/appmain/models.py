@@ -15,6 +15,9 @@ class Bancos(models.Model):
     class Meta:
         managed = False
         db_table = 'bancos'
+    
+    def __str__(self):
+        return '{}'.format(self.nombre)
 
 
 class Clientes(models.Model):
@@ -32,6 +35,9 @@ class Clientes(models.Model):
         managed = False
         db_table = 'clientes'
 
+    def __str__(self):
+        return '{} {}'.format(self.nombre, self.apellido)
+
 
 class Correos(models.Model):
     idcorreo = models.AutoField(primary_key=True)
@@ -41,6 +47,9 @@ class Correos(models.Model):
     class Meta:
         managed = False
         db_table = 'correos'
+
+    def __str__(self):
+        return '{}'.format(self.nombre)
 
 
 class DetBancos(models.Model):
@@ -143,6 +152,9 @@ class Productos(models.Model):
         managed = False
         db_table = 'productos'
 
+    def __str__(self):
+        return '{}'.format(self.nombre)
+
 
 class TiposProductos(models.Model):
     idproducto = models.AutoField(primary_key=True)
@@ -151,3 +163,6 @@ class TiposProductos(models.Model):
     class Meta:
         managed = False
         db_table = 'tipos_productos'
+
+    def __str__(self):
+        return '{}'.format(self.nombre)
