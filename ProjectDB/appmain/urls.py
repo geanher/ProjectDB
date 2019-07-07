@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 app_name='index'
 urlpatterns = [
-    path('/', login_required(index), name='index'),
+    path('', login_required(index), name='index'),
 
 ]
 
