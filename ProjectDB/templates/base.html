@@ -20,7 +20,7 @@
 
 
 
-    <title>{% block title%} Document {% endblock%}</title>
+    <title>{% block title%} ATM {% endblock%}</title>
 </head>
 <body>
     <div class="container">
@@ -51,6 +51,9 @@
                                             <li><a href="{% url 'productos:producto_listar' %}">Listar</a></li>
                                         </ul>
                                     </li>
+                                     <div class="navbar-header">
+                                    <a class="navbar-brand" href="{% url 'facturar:facturar' %}">Facturar</a>
+                                </div>
                                     <li class="dropdown">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Otros <span class="caret"></span></a>
                                         <ul class="dropdown-menu" role="menu">
@@ -78,8 +81,79 @@
     {% endblock %}
 
     {% block content %}
-    <h4>    Bloque de contenido     </h4>
+
+    <h3 align="center">Ultimas Ventas</h3>
+
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <td align="center">Nombre Y Apellido</td>     
+            <td align="center">Fecha de Compra</td>
+        </tr>
+        
+    </thead>
+    <tbody>
+        {% if facturas %}
+        {% for factura in facturas %}
+        <tr>
+            <td>{{ factura.ci }}</td>
+            <td>{{ factura.fecha_fact }}</td>
+
+
+                {% endfor %}
+            </ul>
+            </td>
+            <td>
+            </td>
+        </tr>       
+        {% else %}
+        <h1>No hay registros de Personas</h1>
+        {% endif %}
+    </tbody>
+</table> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     {% block footer %}

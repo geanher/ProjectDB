@@ -57,9 +57,9 @@ class DetFactForm(forms.ModelForm):
 		]
 		labels = {
 			'cod_producto': 'codigo del producto',
-		    'cantidad':'cantidad',
-		    'precio': 'Precio',
-		    'detalles':'Detalles',
+		    'cantidad':'cantidad del producto',
+		    'precio': 'Precio del producto',
+		    'detalles':'Detalles del producto',
     	}
 
 		widgets = {
@@ -70,4 +70,4 @@ class DetFactForm(forms.ModelForm):
     	}
 
 
-facturaFormSet = inlineformset_factory(Facturas, DetFact, form = DetFactForm, fields=['cantidad', 'precio'], extra=3)
+facturaFormSet = inlineformset_factory(Facturas, DetFact, form = DetFactForm, fields = ['cod_producto', 'cantidad', 'precio', 'detalles',], extra=1)

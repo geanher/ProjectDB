@@ -106,4 +106,8 @@ class preguntasForm(forms.ModelForm):
 		    'respuesta': forms.TextInput(attrs={'class': 'form-control'}),
     	}
 
-detallebancoFormSet = inlineformset_factory(DetBancos, Preguntas, form=preguntasForm, fields=('pregunta' , 'respuesta'), extra=1)
+detallebancoFormSet = inlineformset_factory(DetBancos, Preguntas, form=preguntasForm, 		fields = [
+			'n_cuenta',
+		    'pregunta',	
+		    'respuesta',
+		], extra=1)

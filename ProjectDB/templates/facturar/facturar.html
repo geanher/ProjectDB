@@ -4,6 +4,7 @@
 <form method="post">
   {% csrf_token %}
   {{ form }}
+  <br>{{ inlines }}<br>
   <button type="submit">Guardar</button>
 
   

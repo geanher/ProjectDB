@@ -100,6 +100,9 @@ class Facturas(models.Model):
         managed = False
         db_table = 'facturas'
 
+    def __str__(self):
+        return '{} {}'.format(self.ci, self.fecha_fact)
+
 
 class MetPago(models.Model):
     id_met = models.AutoField(primary_key=True)

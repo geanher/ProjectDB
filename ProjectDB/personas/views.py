@@ -79,6 +79,6 @@ class CreateViewDetails(CreateView):
             ctx['form'] = detallebancoForm(self.request.POST)
             ctx['inlines'] = detallebancoFormSet(self.request.POST)
         else:
-            ctx['form'] = DetBancos()
+            ctx['form'] = detallebancoForm
             ctx['inlines'] = detallebancoFormSet()
         return ctx

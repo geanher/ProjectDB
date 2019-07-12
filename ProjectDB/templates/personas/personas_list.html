@@ -31,7 +31,7 @@
 			<td>{{ persona.deudor }}</td>
 			<td>
 				<a class="btn btn-primary" href="{% url 'personas:persona_editar' persona.ci %}">Editar</a>
-				<a class="btn btn-primary" href="#">Datos</a>
+				<a class="btn btn-primary" href="{% url 'personas:detallebanc' %}">Datos</a>
 				<a class="btn btn-danger" href="{% url 'personas:persona_eliminar' persona.ci %}">Eliminar</a>
 
 			</td>
